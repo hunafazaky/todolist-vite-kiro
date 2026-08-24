@@ -75,7 +75,7 @@ graph TD
 
 ## Components and Interfaces
 
-### Task Form Component
+### Task Form Component *(Neobrutalist style: thick black borders, hard shadow, yellow CTA)*
 
 Rendered at the top of the page. Operates in two modes:
 
@@ -92,7 +92,7 @@ The active edit task ID is tracked in application state (`editingId`). Switching
 └─────────────────────────────────────────┘
 ```
 
-### Task List Component
+### Task List Component *(Neobrutalist style: thick black borders, hard shadow, yellow CTA)*
 
 Displays tasks filtered by the active filter option, in reverse chronological order.
 
@@ -104,9 +104,74 @@ Each task item renders:
 
 Empty state message is shown when the filtered list is empty.
 
-### Filter Bar Component
+### Filter Bar Component *(Neobrutalist style: thick black borders, hard shadow, yellow CTA)*
 
 Three buttons / tabs: **All** | **Active** | **Completed**. The active selection is highlighted. Default is "All".
+
+---
+
+## Visual Design — Neobrutalist Style
+
+The app uses a Neobrutalist visual style: raw, high-contrast, and unapologetically flat. No gradients, no border-radius, no blurred shadows.
+
+### Design Tokens
+
+| Token | Value | Usage |
+|---|---|---|
+| `--color-black` | `#000000` | Borders, text, shadows |
+| `--color-white` | `#FFFFFF` | Card backgrounds, inactive buttons |
+| `--color-yellow` | `#FFE000` | Primary CTA (Add/Save), active filter tab |
+| `--color-pink` | `#FF3EA5` | Delete button, error banner background |
+| `--color-bg` | `#F5F5F5` | Page background |
+| `--color-text-muted` | `#666666` | Completed task title |
+| `--border` | `2px solid #000` | Standard border on all elements |
+| `--border-thick` | `4px solid #000` | Card / section borders |
+| `--shadow` | `4px 4px 0 #000` | Resting hard shadow |
+| `--shadow-press` | `2px 2px 0 #000` | Pressed/hover shadow |
+| `--font-heading` | `'Arial Black', Arial, sans-serif` | App title, section labels |
+| `--font-body` | `Arial, sans-serif` | Task titles, buttons, labels |
+| `--font-input` | `monospace` | Task title input field |
+
+### Component Styles
+
+**Task Form card**
+- Background: `--color-white`
+- Border: `--border-thick`
+- Box shadow: `--shadow`
+- Border-radius: `0`
+- Input field: `--border` border, `--font-input`, white background
+- Add/Save button: `--color-yellow` background, `--border`, `--shadow`; on hover/active → translate `2px 2px`, `--shadow-press`
+- Cancel button: white background, `--border`, `--shadow`
+
+**Filter Bar**
+- Container border: `--border-thick`, `--shadow`
+- Inactive tab: white background, `--border`
+- Active tab: `--color-yellow` background, `--border`; bold text
+- Hover on inactive: background `#f0f0f0`
+
+**Task List item**
+- Row bottom border: `1px solid #000`
+- Last item: no bottom border
+- Checkbox: native, styled with `accent-color: #FFE000`
+- Edit button: white background, `--border`, `--shadow`; hover → press effect
+- Delete button: `--color-pink` background, `--border`, `--shadow`; hover → press effect
+- Completed title: `text-decoration: line-through`, color `--color-text-muted`
+
+**Error Banner**
+- Background: `--color-pink`
+- Border: `--border-thick`
+- Box shadow: `--shadow`
+- Text: black, bold
+- Dismiss button: white background, `--border`
+
+**Empty State**
+- Text: bold black, centered, `--font-heading`
+
+### Interaction Patterns
+
+Buttons and interactive cards use a consistent "press" animation: on `:hover` or `:active`, the element shifts `transform: translate(2px, 2px)` and the box shadow shrinks from `--shadow` to `--shadow-press`. This simulates physical depression without transitions (instant snap for a brutalist feel).
+
+Validation errors appear inline below the input in bold black text with a `--color-pink` left border (`4px solid #FF3EA5`).
 
 ---
 
